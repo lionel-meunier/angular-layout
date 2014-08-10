@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../bower_components/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" type="text/css">
+        <link href="../bower_components/font-awesome/css/font-awesome.css" media="all" rel="stylesheet" type="text/css">
+        <script src="../bower_components/underscore/underscore.js" type="text/javascript"></script>
+        <script src="../bower_components/underscore.string/lib/underscore.string.js" type="text/javascript"></script>
+        <script src="../bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+        <script src="../src/script/layout.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            angular.module('lme-layout').controller('layoutCtrl',['$scope','$http',function($scope, $http){
+                $scope.currentLayout = 'view1.html';
+                $scope.changeLayout = function(){
+                    if($scope.currentLayout === 'view1.html'){
+                        $scope.currentLayout = 'view2.html';
+                    } else {
+                        $scope.currentLayout = 'view1.html';
+                    }
+                }
+                
+                $scope.profil = {
+                    name : 'Lionel Meunier',
+                    prof : 'informaticien',
+                    birthday : new Date('1983-11-20')
+                }
+                
+                $scope.$watch('profil.name', function(n, o) {
+                   console.log(n,o); 
+                });
+            }]);
+        </script>
+    </head>
+    <body ng-app="lme-layout" ng-controller="layoutCtrl">   
+        <button ng-click="changeLayout()">Change layout</button>
+        <div layout="currentLayout">
+            <div section="profile1">
+                {{profil.name}}
+            </div>
+            <div section="profile2">
+                {{profil.prof}}
+            </div>
+            <div section="profile3">
+                {{profil.birthday | date}}
+            </div>
+            <div section="editable1">
+                <input type="text" ng-model="profil.name"/>
+            </div>
+            <div section="editable2">
+                <input type="text" ng-model="profil.prof"/>
+            </div>
+            <div section="editable3">
+                {{profil.birthday | date}}
+            </div>
+        </div>
+    </body>
+</html>
